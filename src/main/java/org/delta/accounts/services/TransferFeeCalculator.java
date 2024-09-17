@@ -1,4 +1,4 @@
-package org.delta.accounts;
+package org.delta.accounts.services;
 
 public class TransferFeeCalculator {
     public static final double TRANSACTION_FEE_FIXED_AMOUNT = 10;

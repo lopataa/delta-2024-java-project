@@ -1,5 +1,7 @@
-package org.delta.accounts;
+package org.delta.accounts.services;
 
+import org.delta.accounts.BankAccount;
+import org.delta.accounts.exceptions.NotEnoughMoneyException;
 import org.delta.print.AccountDetailPrinter;
 
 public class MoneyTransferService {
@@ -31,5 +33,21 @@ public class MoneyTransferService {
 
         bankAccount.setBalance(newBalance);
         accountDetailPrinter.printDetail(bankAccount);
+    }
+
+    public void transferMoney(BankAccount sender, BankAccount beneficiary, double amount) {
+        double balance = sender.getBalance();
+        double newBalance = balance - amount;
+
+        newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
+
+        if(balance < amount) {
+            throw new NotEnoughMoneyException();
+        }
+
+        sender.setBalance(newBalance);
+        beneficiary.setBalance(beneficiary.getBalance() + amount);
+        accountDetailPrinter.printDetail(sender);
+        accountDetailPrinter.printDetail(beneficiary);
     }
 }

@@ -1,8 +1,11 @@
 package org.delta;
 
 import org.delta.accounts.BankAccount;
-import org.delta.accounts.MoneyTransferService;
+import org.delta.accounts.factories.BankAccountFactory;
+import org.delta.accounts.services.MoneyTransferService;
 import org.delta.people.Owner;
+import org.delta.people.OwnerFactory;
+import org.delta.print.AccountDetailPrinter;
 
 public class App {
     public void run() {
@@ -10,15 +13,14 @@ public class App {
     }
 
     void runBank() {
-        Owner owner = new Owner("Patwik", "Zlý");
-        BankAccount bankAccount = new BankAccount(0, owner, "CZ001234561234567890");
-        MoneyTransferService moneyTransferService = new MoneyTransferService();
+        OwnerFactory ownerFactory = new OwnerFactory();
+        BankAccountFactory bankAccountFactory = new BankAccountFactory();
 
-        moneyTransferService.depositMoney(bankAccount, 500);
+        Owner owner1 = ownerFactory.createOwner("John", "Doe", "1234567890");
+        BankAccount basicBankAccount = bankAccountFactory.createBankAccount(1000, owner1);
+        BankAccount studentBankAccount = bankAccountFactory.createStudentBankAccount(1000, owner1);
 
-        boolean isInDebt = bankAccount.getBalance() < 0;
-        if(isInDebt) {
-            System.out.printf("this guy %s is in debt", bankAccount.getOwner().getFirstname());
-        }
+        new AccountDetailPrinter().printDetail(basicBankAccount);
+        new AccountDetailPrinter().printDetail(studentBankAccount);
     }
 }

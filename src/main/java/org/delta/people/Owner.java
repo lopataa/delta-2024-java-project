@@ -5,6 +5,7 @@ public class Owner {
     public String lastname;
     public String id;
 
+
     public Owner(String firstname, String lastname, String id) {
         this.firstname = firstname;
         this.lastname = lastname;

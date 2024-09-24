@@ -1,7 +1,6 @@
-package org.delta.accounts.validators;
+package org.delta.accounts;
 
-import org.delta.accounts.BankAccount;
-import org.delta.accounts.Interesting;
+import org.delta.accounts.interfaces.Interesting;
 import org.delta.people.Owner;
 
 public class SavingsAccount extends BankAccount implements Interesting {

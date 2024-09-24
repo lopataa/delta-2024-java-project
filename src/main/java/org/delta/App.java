@@ -5,6 +5,7 @@ import org.delta.accounts.BankAccount;
 import org.delta.accounts.factories.BankAccountFactory;
 import org.delta.accounts.services.BankAccountNumberGenerator;
 import org.delta.accounts.services.MoneyTransferService;
+import org.delta.accounts.services.SlovakianAccountNumberGenerator;
 import org.delta.accounts.services.TransferFeeCalculator;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
@@ -17,24 +18,15 @@ public class App {
     }
 
     void runBank() {
-        // dependencies
-        AccountNumberGenerator accountNumberGenerator = new BankAccountNumberGenerator();
-        PersonIdValidator personIdValidator = new PersonIdValidator();
-        AccountDetailPrinter accountDetailPrinter = new AccountDetailPrinter();
-        TransferFeeCalculator transferFeeCalculator = new TransferFeeCalculator();
-        MoneyTransferService moneyTransferService = new MoneyTransferService(transferFeeCalculator, accountDetailPrinter);
-
-        // factories
-        OwnerFactory ownerFactory = new OwnerFactory(personIdValidator, accountNumberGenerator);
-        BankAccountFactory bankAccountFactory = new BankAccountFactory(accountNumberGenerator);
+        DIContainer services = new DIContainer();
 
         // DAOs
-        Owner owner1 = ownerFactory.createOwner("John", "Doe", "1234567890");
-        BankAccount basicBankAccount = bankAccountFactory.createBankAccount(1000, owner1);
-        BankAccount studentBankAccount = bankAccountFactory.createStudentBankAccount(1000, owner1);
+        Owner owner1 = services.getOwnerFactory().createOwner("John", "Doe", "1234567890");
+        BankAccount basicBankAccount = services.getBankAccountFactory().createBankAccount(1000, owner1);
+        BankAccount studentBankAccount = services.getBankAccountFactory().createStudentBankAccount(1000, owner1);
 
         // test
-        accountDetailPrinter.printDetail(basicBankAccount);
-        accountDetailPrinter.printDetail(studentBankAccount);
+        services.getAccountDetailPrinter().printDetail(basicBankAccount);
+        services.getAccountDetailPrinter().printDetail(studentBankAccount);
     }
 }

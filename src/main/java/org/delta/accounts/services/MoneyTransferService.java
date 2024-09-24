@@ -9,9 +9,9 @@ public class MoneyTransferService {
     public TransferFeeCalculator transferFeeCalculator;
     public AccountDetailPrinter accountDetailPrinter;
 
-    public MoneyTransferService() {
-        this.transferFeeCalculator = new TransferFeeCalculator();
-        this.accountDetailPrinter = new AccountDetailPrinter();
+    public MoneyTransferService(TransferFeeCalculator transferFeeCalculator, AccountDetailPrinter accountDetailPrinter) {
+        this.transferFeeCalculator = transferFeeCalculator;
+        this.accountDetailPrinter = accountDetailPrinter;
     }
 
 

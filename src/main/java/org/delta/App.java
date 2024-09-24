@@ -4,6 +4,8 @@ import org.delta.accounts.interfaces.AccountNumberGenerator;
 import org.delta.accounts.BankAccount;
 import org.delta.accounts.factories.BankAccountFactory;
 import org.delta.accounts.services.BankAccountNumberGenerator;
+import org.delta.accounts.services.MoneyTransferService;
+import org.delta.accounts.services.TransferFeeCalculator;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
 import org.delta.people.PersonIdValidator;
@@ -18,6 +20,9 @@ public class App {
         // dependencies
         AccountNumberGenerator accountNumberGenerator = new BankAccountNumberGenerator();
         PersonIdValidator personIdValidator = new PersonIdValidator();
+        AccountDetailPrinter accountDetailPrinter = new AccountDetailPrinter();
+        TransferFeeCalculator transferFeeCalculator = new TransferFeeCalculator();
+        MoneyTransferService moneyTransferService = new MoneyTransferService(transferFeeCalculator, accountDetailPrinter);
 
         // factories
         OwnerFactory ownerFactory = new OwnerFactory(personIdValidator, accountNumberGenerator);
@@ -29,7 +34,7 @@ public class App {
         BankAccount studentBankAccount = bankAccountFactory.createStudentBankAccount(1000, owner1);
 
         // test
-        new AccountDetailPrinter().printDetail(basicBankAccount);
-        new AccountDetailPrinter().printDetail(studentBankAccount);
+        accountDetailPrinter.printDetail(basicBankAccount);
+        accountDetailPrinter.printDetail(studentBankAccount);
     }
 }

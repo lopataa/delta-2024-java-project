@@ -1,5 +1,8 @@
 package org.delta;
 
+import com.google.gson.Gson;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.delta.accounts.factories.BankAccountFactory;
 import org.delta.accounts.interfaces.AccountNumberGenerator;
 import org.delta.accounts.services.BankAccountNumberGenerator;
@@ -9,6 +12,7 @@ import org.delta.people.OwnerFactory;
 import org.delta.people.PersonIdValidator;
 import org.delta.print.AccountDetailPrinter;
 
+@Singleton
 public class DIContainer {
     private AccountNumberGenerator accountNumberGenerator = new BankAccountNumberGenerator();
     private PersonIdValidator personIdValidator = new PersonIdValidator();
@@ -16,8 +20,15 @@ public class DIContainer {
     private TransferFeeCalculator transferFeeCalculator = new TransferFeeCalculator();
     private MoneyTransferService moneyTransferService = new MoneyTransferService(transferFeeCalculator, accountDetailPrinter);
 
+    public Gson getGson() {
+        return gson;
+    }
+
+    private Gson gson = new Gson();
+
     private OwnerFactory ownerFactory = new OwnerFactory(personIdValidator, accountNumberGenerator);
-    private BankAccountFactory bankAccountFactory = new BankAccountFactory(accountNumberGenerator);
+    @Inject
+    private BankAccountFactory bankAccountFactory;
 
     public AccountNumberGenerator getAccountNumberGenerator() {
         return accountNumberGenerator;

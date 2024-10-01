@@ -18,6 +18,8 @@ public class OwnerFactory {
             throw new IllegalArgumentException("Invalid Id \uD83D\uDE2D");
         }
 
+        System.out.println(this.accountNumberGenerator.generateAccountNumber());
+
         return new Owner(name, surname, id);
     }
 

@@ -1,14 +1,7 @@
-package org.delta.accounts.factories;
+package org.delta.cards;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.delta.accounts.DebitCard;
-import org.delta.accounts.GlobalCardStorage;
-import org.delta.accounts.PaymentCard;
-import org.delta.accounts.interfaces.CardNumberGenerator;
-import org.delta.accounts.services.PaymentCardPersonalIdentificationNumberGenerator;
-
-import java.util.HashMap;
 
 @Singleton
 public class PaymentCardFactory {

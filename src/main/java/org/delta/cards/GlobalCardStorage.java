@@ -1,7 +1,10 @@
-package org.delta.accounts;
+package org.delta.cards;
+
+import com.google.inject.Singleton;
 
 import java.util.HashMap;
 
+@Singleton
 public class GlobalCardStorage {
     public HashMap<String, PaymentCard> paymentCards = new HashMap<String, PaymentCard>();
 

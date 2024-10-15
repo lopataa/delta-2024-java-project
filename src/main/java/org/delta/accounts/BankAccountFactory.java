@@ -1,9 +1,8 @@
-package org.delta.accounts.factories;
+package org.delta.accounts;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.delta.accounts.interfaces.AccountNumberGenerator;
-import org.delta.accounts.BankAccount;
+import org.delta.cards.PaymentCardFactory;
 import org.delta.people.Owner;
 
 @Singleton

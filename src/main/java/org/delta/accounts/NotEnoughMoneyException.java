@@ -1,4 +1,4 @@
-package org.delta.accounts.exceptions;
+package org.delta.accounts;
 
 public class NotEnoughMoneyException extends RuntimeException {
     public NotEnoughMoneyException() {

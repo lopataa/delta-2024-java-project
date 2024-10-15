@@ -1,7 +1,6 @@
-package org.delta.accounts.services;
+package org.delta.accounts;
 
 import com.google.inject.Singleton;
-import org.delta.accounts.interfaces.AccountNumberGenerator;
 
 import java.util.Random;
 

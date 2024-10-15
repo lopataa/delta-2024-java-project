@@ -1,4 +1,4 @@
-package org.delta.accounts.interfaces;
+package org.delta.accounts;
 
 public interface Interesting {
     double interestRate = 0;

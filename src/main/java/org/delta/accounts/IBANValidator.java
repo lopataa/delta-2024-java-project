@@ -1,4 +1,4 @@
-package org.delta.accounts.validators;
+package org.delta.accounts;
 
 import java.math.BigInteger;
 

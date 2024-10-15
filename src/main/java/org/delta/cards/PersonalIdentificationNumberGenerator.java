@@ -1,4 +1,4 @@
-package org.delta.accounts.interfaces;
+package org.delta.cards;
 
 public interface PersonalIdentificationNumberGenerator {
     public String generate();

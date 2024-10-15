@@ -1,10 +1,12 @@
 package org.delta;
 
 import com.google.inject.Inject;
-import org.delta.accounts.PaymentCard;
-import org.delta.accounts.factories.PaymentCardFactory;
+import org.delta.accounts.BankAccountFacade;
+import org.delta.cards.PaymentCard;
+import org.delta.cards.PaymentCardFacade;
+import org.delta.cards.PaymentCardFactory;
 import org.delta.accounts.BankAccount;
-import org.delta.accounts.factories.BankAccountFactory;
+import org.delta.accounts.BankAccountFactory;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
 import org.delta.people.OwnerJsonSerializationService;
@@ -19,7 +21,10 @@ public class App {
     OwnerFactory ownerFactory;
 
     @Inject
-    BankAccountFactory bankAccountFactory;
+    BankAccountFacade bankAccountFacade;
+
+    @Inject
+    PaymentCardFacade paymentCardFacade;
 
     @Inject
     AccountDetailPrinter accountDetailPrinter;
@@ -28,22 +33,21 @@ public class App {
     OwnerJsonSerializationService ownerJsonSerializationService;
 
     @Inject
-    PaymentCardFactory debitCardFactory;
+    AtmService atmService;
 
     void runBank() {
 
 
 
-        // DAOs
-        Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "1234567890");
-        BankAccount basicBankAccount = this.bankAccountFactory.createBankAccount(1000, owner1, true);
+        Owner owner = ownerFactory.createOwner("John", "Doe", "11");
+        BankAccount bankAccount = bankAccountFacade.bankAccountFactory.createBankAccount(1000, owner, true);
 
-        // create a payment card
-        PaymentCard paymentCard = this.debitCardFactory.createDebitCard();
+        atmService.deposit(bankAccount.getPaymentCards().getFirst(), 100);
 
-        basicBankAccount.associatePaymentCard(paymentCard);
+        String cardNumber = bankAccount.getPaymentCards().getFirst().getNumber();
+        atmService.withdraw(cardNumber, 50);
 
-        // test
-        this.accountDetailPrinter.printDetail(basicBankAccount);
+
+        accountDetailPrinter.printDetail(bankAccount);
     }
 }

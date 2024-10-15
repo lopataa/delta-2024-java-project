@@ -1,5 +1,6 @@
 package org.delta.accounts;
 
+import org.delta.cards.PaymentCard;
 import org.delta.people.Owner;
 
 import java.util.ArrayList;
@@ -21,9 +22,8 @@ public class BankAccount {
     }
 
     public void associatePaymentCard(PaymentCard paymentCard) {
-        this.paymentCards.add(paymentCard);
-
         paymentCard.setBankAccount(this);
+        this.paymentCards.add(paymentCard);
     }
 
     public List<PaymentCard> getPaymentCards() {

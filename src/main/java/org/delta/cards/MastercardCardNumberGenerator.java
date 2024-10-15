@@ -1,8 +1,7 @@
-package org.delta.accounts.services;
+package org.delta.cards;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.delta.accounts.interfaces.CardNumberGenerator;
 
 import java.util.Random;
 

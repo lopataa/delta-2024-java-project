@@ -1,4 +1,6 @@
-package org.delta.accounts;
+package org.delta.cards;
+
+import org.delta.accounts.BankAccount;
 
 public class PaymentCard {
     private String number;

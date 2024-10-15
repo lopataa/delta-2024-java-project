@@ -1,9 +1,7 @@
-package org.delta.accounts.services;
+package org.delta.accounts;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.delta.accounts.BankAccount;
-import org.delta.accounts.exceptions.NotEnoughMoneyException;
 import org.delta.print.AccountDetailPrinter;
 
 @Singleton
@@ -21,7 +19,6 @@ public class MoneyTransferService {
         newBalance -= this.transferFeeCalculator.calculateTransferFee(amount);
 
         bankAccount.setBalance(newBalance);
-        accountDetailPrinter.printDetail(bankAccount);
     }
 
     public void withdrawMoney(BankAccount bankAccount, double amount) {
@@ -31,7 +28,6 @@ public class MoneyTransferService {
         newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
 
         bankAccount.setBalance(newBalance);
-        accountDetailPrinter.printDetail(bankAccount);
     }
 
     public void transferMoney(BankAccount sender, BankAccount beneficiary, double amount) {
@@ -46,7 +42,5 @@ public class MoneyTransferService {
 
         sender.setBalance(newBalance);
         beneficiary.setBalance(beneficiary.getBalance() + amount);
-        accountDetailPrinter.printDetail(sender);
-        accountDetailPrinter.printDetail(beneficiary);
     }
 }

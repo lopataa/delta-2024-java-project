@@ -1,5 +1,8 @@
 package org.delta.accounts.services;
 
+import com.google.inject.Singleton;
+
+@Singleton
 public class TransferFeeCalculator {
     public static final double TRANSACTION_FEE_FIXED_AMOUNT = 10;
 

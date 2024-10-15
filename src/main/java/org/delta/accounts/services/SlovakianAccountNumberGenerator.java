@@ -6,7 +6,7 @@ import org.delta.accounts.interfaces.AccountNumberGenerator;
 @Singleton
 public class SlovakianAccountNumberGenerator implements AccountNumberGenerator {
     @Override
-    public String generateAccountNumber() {
+    public String generate() {
         return "slovakian";
     }
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 @Singleton
 public class BankAccountNumberGenerator implements AccountNumberGenerator {
     @Override
-    public String generateAccountNumber() {
+    public String generate() {
         Random random = new Random();
 
         StringBuilder accountNumber = new StringBuilder();

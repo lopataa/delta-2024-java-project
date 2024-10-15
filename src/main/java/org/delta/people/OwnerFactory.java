@@ -1,24 +1,23 @@
 package org.delta.people;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.delta.accounts.interfaces.AccountNumberGenerator;
-import org.delta.accounts.services.BankAccountNumberGenerator;
 
+@Singleton
 public class OwnerFactory {
-    private PersonIdValidator personIdValidator;
+    @Inject
+    public PersonIdValidator personIdValidator;
 
-    private AccountNumberGenerator accountNumberGenerator;
+    @Inject
+    public AccountNumberGenerator accountNumberGenerator;
 
-    public OwnerFactory(PersonIdValidator personIdValidator, AccountNumberGenerator accountNumberGenerator) {
-        this.personIdValidator = personIdValidator;
-        this.accountNumberGenerator = accountNumberGenerator;
-    }
+    public OwnerFactory() {}
 
     public Owner createOwner(String name, String surname, String id) {
         if(!this.personIdValidator.isPersonIdValid(id)) {
             throw new IllegalArgumentException("Invalid Id \uD83D\uDE2D");
         }
-
-        System.out.println(this.accountNumberGenerator.generateAccountNumber());
 
         return new Owner(name, surname, id);
     }

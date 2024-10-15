@@ -1,19 +1,18 @@
 package org.delta.accounts.services;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.delta.accounts.BankAccount;
 import org.delta.accounts.exceptions.NotEnoughMoneyException;
 import org.delta.print.AccountDetailPrinter;
 
+@Singleton
 public class MoneyTransferService {
-
+    @Inject
     public TransferFeeCalculator transferFeeCalculator;
+
+    @Inject
     public AccountDetailPrinter accountDetailPrinter;
-
-    public MoneyTransferService(TransferFeeCalculator transferFeeCalculator, AccountDetailPrinter accountDetailPrinter) {
-        this.transferFeeCalculator = transferFeeCalculator;
-        this.accountDetailPrinter = accountDetailPrinter;
-    }
-
 
     public void depositMoney(BankAccount bankAccount, double amount) {
         double balance = bankAccount.getBalance();
@@ -41,7 +40,7 @@ public class MoneyTransferService {
 
         newBalance += this.transferFeeCalculator.calculateTransferFee(amount);
 
-        if(balance < amount) {
+        if (balance < amount) {
             throw new NotEnoughMoneyException();
         }
 

@@ -1,19 +1,13 @@
 package org.delta;
 
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import org.delta.accounts.interfaces.AccountNumberGenerator;
+import org.delta.accounts.PaymentCard;
+import org.delta.accounts.factories.PaymentCardFactory;
 import org.delta.accounts.BankAccount;
 import org.delta.accounts.factories.BankAccountFactory;
-import org.delta.accounts.services.BankAccountNumberGenerator;
-import org.delta.accounts.services.MoneyTransferService;
-import org.delta.accounts.services.SlovakianAccountNumberGenerator;
-import org.delta.accounts.services.TransferFeeCalculator;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
 import org.delta.people.OwnerJsonSerializationService;
-import org.delta.people.PersonIdValidator;
 import org.delta.print.AccountDetailPrinter;
 
 public class App {
@@ -22,19 +16,34 @@ public class App {
     }
 
     @Inject
-    private DIContainer services;
+    OwnerFactory ownerFactory;
+
+    @Inject
+    BankAccountFactory bankAccountFactory;
+
+    @Inject
+    AccountDetailPrinter accountDetailPrinter;
+
+    @Inject
+    OwnerJsonSerializationService ownerJsonSerializationService;
+
+    @Inject
+    PaymentCardFactory debitCardFactory;
 
     void runBank() {
 
-        // DAOs
-        Owner owner1 = services.getOwnerFactory().createOwner("John", "Doe", "1234567890");
-        BankAccount basicBankAccount = services.getBankAccountFactory().createBankAccount(1000, owner1);
-        BankAccount studentBankAccount = services.getBankAccountFactory().createStudentBankAccount(1000, owner1);
 
-        System.out.println(new OwnerJsonSerializationService(services.getGson()).serializeOwner(owner1));
+
+        // DAOs
+        Owner owner1 = this.ownerFactory.createOwner("John", "Doe", "1234567890");
+        BankAccount basicBankAccount = this.bankAccountFactory.createBankAccount(1000, owner1, true);
+
+        // create a payment card
+        PaymentCard paymentCard = this.debitCardFactory.createDebitCard();
+
+        basicBankAccount.associatePaymentCard(paymentCard);
 
         // test
-        services.getAccountDetailPrinter().printDetail(basicBankAccount);
-        services.getAccountDetailPrinter().printDetail(studentBankAccount);
+        this.accountDetailPrinter.printDetail(basicBankAccount);
     }
 }

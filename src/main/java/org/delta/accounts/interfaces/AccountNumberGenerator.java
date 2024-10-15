@@ -1,5 +1,5 @@
 package org.delta.accounts.interfaces;
 
 public interface AccountNumberGenerator {
-    String generateAccountNumber();
+    String generate();
 }

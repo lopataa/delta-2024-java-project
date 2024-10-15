@@ -1,15 +1,16 @@
 package org.delta.people;
 
 import com.google.gson.Gson;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import java.util.HashMap;
 
+@Singleton
 public class OwnerJsonSerializationService {
-    private Gson gson;
+    @Inject
+    public Gson gson;
     
-    public OwnerJsonSerializationService(Gson gson) {
-        this.gson = gson;
-    }
-
     public String serializeOwner(Owner owner) {
         return gson.toJson(owner);
     }

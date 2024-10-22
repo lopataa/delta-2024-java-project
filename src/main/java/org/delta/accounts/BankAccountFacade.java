@@ -20,4 +20,10 @@ public class BankAccountFacade {
 
         return bankAccount;
     }
+
+    public SavingsAccount createSavingBankAccount(double balance, Owner owner, String accountNumber) {
+        SavingsAccount account = bankAccountFactory.createSavingBankAccount(balance, owner, accountNumber, 4);
+
+        return account;
+    }
 }

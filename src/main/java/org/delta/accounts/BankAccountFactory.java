@@ -10,8 +10,13 @@ public class BankAccountFactory {
     @Inject
     public AccountNumberGenerator bankAccountNumberGenerator;
 
+    @Inject
+    public GlobalAccountStorage globalAccountStorage;
+
     public BankAccount createBankAccount(double balance, Owner owner) {
         BankAccount bankAccount = new BankAccount(balance, owner, bankAccountNumberGenerator.generate());
+
+        this.globalAccountStorage.put(bankAccount);
 
         return bankAccount;
     }
@@ -22,5 +27,13 @@ public class BankAccountFactory {
 
     public BankAccount createStudentBankAccount(double balance, Owner owner) {
         return new BankAccount(balance, owner, bankAccountNumberGenerator.generate());
+    }
+
+    public SavingsAccount createSavingBankAccount(double balance, Owner owner, String accountNumber, double interestRate) {
+        SavingsAccount account = new SavingsAccount(balance, owner, accountNumber, interestRate);
+
+        this.globalAccountStorage.put(account);
+
+        return account;
     }
 }

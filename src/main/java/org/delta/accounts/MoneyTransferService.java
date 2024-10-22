@@ -43,4 +43,11 @@ public class MoneyTransferService {
         sender.setBalance(newBalance);
         beneficiary.setBalance(beneficiary.getBalance() + amount);
     }
+
+    public void addMoney(BankAccount bankAccount, double amount) {
+        double balance = bankAccount.getBalance();
+        double newBalance = balance + amount;
+
+        bankAccount.setBalance(newBalance);
+    }
 }

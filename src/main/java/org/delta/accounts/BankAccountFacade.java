@@ -12,9 +12,6 @@ public class BankAccountFacade {
     @Inject
     public PaymentCardFactory paymentCardFactory;
 
-    @Inject
-    public MoneyTransferService moneyTransferService;
-
     public BankAccount createBankAccount(double balance, Owner owner) {
         BankAccount bankAccount = bankAccountFactory.createBankAccount(balance, owner);
         PaymentCard paymentCard = paymentCardFactory.createDebitCard();

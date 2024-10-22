@@ -10,15 +10,8 @@ public class BankAccountFactory {
     @Inject
     public AccountNumberGenerator bankAccountNumberGenerator;
 
-    @Inject
-    PaymentCardFactory paymentCardFactory;
-
-    public BankAccount createBankAccount(double balance, Owner owner, boolean withCard) {
+    public BankAccount createBankAccount(double balance, Owner owner) {
         BankAccount bankAccount = new BankAccount(balance, owner, bankAccountNumberGenerator.generate());
-
-        if(withCard) {
-            bankAccount.associatePaymentCard(paymentCardFactory.createDebitCard());
-        }
 
         return bankAccount;
     }

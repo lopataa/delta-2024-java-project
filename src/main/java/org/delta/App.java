@@ -24,9 +24,6 @@ public class App {
     BankAccountFacade bankAccountFacade;
 
     @Inject
-    PaymentCardFacade paymentCardFacade;
-
-    @Inject
     AccountDetailPrinter accountDetailPrinter;
 
     @Inject
@@ -36,11 +33,8 @@ public class App {
     AtmService atmService;
 
     void runBank() {
-
-
-
         Owner owner = ownerFactory.createOwner("John", "Doe", "11");
-        BankAccount bankAccount = bankAccountFacade.bankAccountFactory.createBankAccount(1000, owner, true);
+        BankAccount bankAccount = bankAccountFacade.createBankAccount(1000, owner);
 
         atmService.deposit(bankAccount.getPaymentCards().getFirst(), 100);
 

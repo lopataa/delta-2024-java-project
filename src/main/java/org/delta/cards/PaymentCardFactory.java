@@ -20,9 +20,6 @@ public class PaymentCardFactory {
                 this.cardNumberGenerator.generate(),
                 this.paymentCardPersonalIdentificationNumberGenerator.generate()
         );
-
-        this.globalCardStorage.put(debitCard);
-
         return debitCard;
     }
 

@@ -29,10 +29,7 @@ public class BankAccountFacade {
     }
 
     public InvestmentAccount createInvestmentAccount(double balance, Owner owner, String accountNumber) {
-        System.out.println(balance);
         InvestmentAccount account = bankAccountFactory.createInvestmentAccount(balance, owner, accountNumber);
-
-        System.out.println("Investment account created with balance: " + account.getBalance());
 
         return account;
     }

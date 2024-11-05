@@ -19,8 +19,6 @@ public class StockBroker {
         }
 
         if(!moneyTransferService.hasSufficientFunds(account, quantity * globalStockStorage.get(stockSymbol).getPrice())) {
-            System.out.println("Account balance: " + account.getBalance());
-            System.out.println(quantity * globalStockStorage.get(stockSymbol).getPrice());
             throw new RuntimeException("Insufficient funds");
         }
 

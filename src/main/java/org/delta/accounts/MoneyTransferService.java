@@ -50,4 +50,15 @@ public class MoneyTransferService {
 
         bankAccount.setBalance(newBalance);
     }
+
+    public void deductMoney(BankAccount bankAccount, double amount) {
+        double balance = bankAccount.getBalance();
+        double newBalance = balance - amount;
+
+        bankAccount.setBalance(newBalance);
+    }
+
+    public boolean hasSufficientFunds(BankAccount bankAccount, double amount) {
+        return bankAccount.getBalance() >= amount;
+    }
 }

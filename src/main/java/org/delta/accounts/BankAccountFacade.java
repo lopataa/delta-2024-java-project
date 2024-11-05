@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.delta.cards.PaymentCard;
 import org.delta.cards.PaymentCardFactory;
 import org.delta.people.Owner;
+import org.delta.investment.InvestmentAccount;
 
 public class BankAccountFacade {
     @Inject
@@ -23,6 +24,12 @@ public class BankAccountFacade {
 
     public SavingsAccount createSavingBankAccount(double balance, Owner owner, String accountNumber) {
         SavingsAccount account = bankAccountFactory.createSavingBankAccount(balance, owner, accountNumber, 4);
+
+        return account;
+    }
+
+    public InvestmentAccount createInvestmentAccount(double balance, Owner owner, String accountNumber) {
+        InvestmentAccount account = bankAccountFactory.createInvestmentAccount(balance, owner, accountNumber);
 
         return account;
     }

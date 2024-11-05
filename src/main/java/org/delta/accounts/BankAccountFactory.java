@@ -3,6 +3,7 @@ package org.delta.accounts;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.delta.cards.PaymentCardFactory;
+import org.delta.investment.InvestmentAccount;
 import org.delta.people.Owner;
 
 @Singleton
@@ -31,6 +32,14 @@ public class BankAccountFactory {
 
     public SavingsAccount createSavingBankAccount(double balance, Owner owner, String accountNumber, double interestRate) {
         SavingsAccount account = new SavingsAccount(balance, owner, accountNumber, interestRate);
+
+        this.globalAccountStorage.put(account);
+
+        return account;
+    }
+
+    public InvestmentAccount createInvestmentAccount(double balance, Owner owner, String accountNumber) {
+        InvestmentAccount account = new InvestmentAccount(balance, owner, accountNumber);
 
         this.globalAccountStorage.put(account);
 

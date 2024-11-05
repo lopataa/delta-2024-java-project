@@ -9,10 +9,15 @@ import org.delta.cards.PaymentCardFacade;
 import org.delta.cards.PaymentCardFactory;
 import org.delta.accounts.BankAccount;
 import org.delta.accounts.BankAccountFactory;
+import org.delta.investment.*;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
 import org.delta.people.OwnerJsonSerializationService;
 import org.delta.print.AccountDetailPrinter;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 public class App {
     public void run() {
@@ -37,6 +42,15 @@ public class App {
     @Inject
     InterestingService interestingService;
 
+    @Inject
+    StockFactory stockFactory;
+
+    @Inject
+    StockBroker stockBroker;
+
+    @Inject
+    GlobalStockStorage globalStockStorage;
+
     void runBank() {
         Owner owner = ownerFactory.createOwner("John", "Doe", "11");
         BankAccount bankAccount = bankAccountFacade.createBankAccount(1000, owner);
@@ -52,7 +66,15 @@ public class App {
 
         // add interest
         this.interestingService.calculate();
-
+        DateFormat df = DateFormat.getDateInstance();
         accountDetailPrinter.printDetail(savingsAccount);
+        stockFactory.createDividendStock("AAPL", 222.01, 0.0045f, DividendFrequency.QUARTERLY, new Date(2024, 8, 15));
+        stockFactory.createStock("GOOG", 170.68);
+        stockFactory.createDividendStock("O", 170.68, 0.051f, DividendFrequency.MONTHLY, new Date(2024, 10, 15));
+        InvestmentAccount investmentAccount = bankAccountFacade.createInvestmentAccount(1000, owner, "1234");
+
+        globalStockStorage.get("AAPL");
+        stockBroker.buyStock(investmentAccount, "AAPL", 10);
+
     }
 }

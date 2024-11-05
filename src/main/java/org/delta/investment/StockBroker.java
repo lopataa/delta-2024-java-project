@@ -2,6 +2,7 @@ package org.delta.investment;
 
 import com.google.inject.Inject;
 import org.delta.accounts.MoneyTransferService;
+import org.delta.lib.Pair;
 
 public class StockBroker {
     @Inject
@@ -18,6 +19,8 @@ public class StockBroker {
         }
 
         if(!moneyTransferService.hasSufficientFunds(account, quantity * globalStockStorage.get(stockSymbol).getPrice())) {
+            System.out.println("Account balance: " + account.getBalance());
+            System.out.println(quantity * globalStockStorage.get(stockSymbol).getPrice());
             throw new RuntimeException("Insufficient funds");
         }
 
@@ -45,5 +48,26 @@ public class StockBroker {
 
         // Remove the stock from the account
         account.removeStock(stock, quantity);
+    }
+
+    public void autoInvest(InvestmentAccount account, InvestmentPie investmentPie, double amount) {
+        for(Pair<Double, Stock> stockPair : investmentPie.stocks) {
+            double percentage = stockPair.x;
+            Stock stock = stockPair.y;
+
+            double stockAmount = amount * percentage;
+
+            buyStock(account, stock.getSymbol(), stockAmount / stock.getPrice());
+        }
+    }
+
+    public void autoInvest(InvestmentAccount account, double amount) {
+        InvestmentPie investmentPie = account.getDefaultInvestmentPie();
+
+        if(investmentPie == null) {
+            throw new RuntimeException("No default investment pie set.");
+        }
+
+        this.autoInvest(account, investmentPie, amount);
     }
 }

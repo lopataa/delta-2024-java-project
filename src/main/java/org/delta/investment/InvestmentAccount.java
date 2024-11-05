@@ -4,21 +4,23 @@ import org.delta.accounts.BankAccount;
 import org.delta.people.Owner;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class InvestmentAccount extends BankAccount {
-    private double balance;
     private HashMap<String, StockOwnership> ownedStocks = new HashMap<String, StockOwnership>();
+
+    private InvestmentPie defaultInvestmentPie = new InvestmentPie();
+
+    public InvestmentPie getDefaultInvestmentPie() {
+        return defaultInvestmentPie;
+    }
+
+    public void setDefaultInvestmentPie(InvestmentPie defaultInvestmentPie) {
+        this.defaultInvestmentPie = defaultInvestmentPie;
+    }
 
     public InvestmentAccount(double balance, Owner owner, String accountNumber) {
         super(balance, owner, accountNumber);
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
     }
 
     public void addStock(Stock stock, double quantity) {
@@ -52,5 +54,19 @@ public class InvestmentAccount extends BankAccount {
         }
 
         return this.ownedStocks.get(stockSymbol).getQuantity();
+    }
+
+    public HashMap<String, StockOwnership> getOwnedStocks() {
+        return ownedStocks;
+    }
+
+    public double getAssetsValue() {
+        double value = 0;
+        for(Map.Entry<String, StockOwnership> entry : this.ownedStocks.entrySet()) {
+            StockOwnership stockOwnership = entry.getValue();
+            value += stockOwnership.getStock().getPrice() * stockOwnership.getQuantity();
+        }
+
+        return value;
     }
 }

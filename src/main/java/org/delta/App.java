@@ -43,7 +43,7 @@ public class App {
     InterestingService interestingService;
 
     @Inject
-    StockFactory stockFactory;
+    StockFacade stockFacade;
 
     @Inject
     StockBroker stockBroker;
@@ -66,15 +66,24 @@ public class App {
 
         // add interest
         this.interestingService.calculate();
-        DateFormat df = DateFormat.getDateInstance();
-        accountDetailPrinter.printDetail(savingsAccount);
-        stockFactory.createDividendStock("AAPL", 222.01, 0.0045f, DividendFrequency.QUARTERLY, new Date(2024, 8, 15));
-        stockFactory.createStock("GOOG", 170.68);
-        stockFactory.createDividendStock("O", 170.68, 0.051f, DividendFrequency.MONTHLY, new Date(2024, 10, 15));
+
+        stockFacade.createDividendStock("AAPL", 222.01, 0.0045f, DividendFrequency.QUARTERLY, new Date(2024, 8, 15));
+        stockFacade.createStock("GOOG", 170.68);
+        stockFacade.createDividendStock("O", 58.33, 0.051f, DividendFrequency.MONTHLY, new Date(2024, 10, 15));
+
         InvestmentAccount investmentAccount = bankAccountFacade.createInvestmentAccount(1000, owner, "1234");
 
         globalStockStorage.get("AAPL");
-        stockBroker.buyStock(investmentAccount, "AAPL", 10);
 
+        InvestmentPie investmentPie = new InvestmentPie();
+        investmentPie.addStock(globalStockStorage.get("AAPL"), 0.5);
+        investmentPie.addStock(globalStockStorage.get("O"), 0.25);
+        investmentPie.addStock(globalStockStorage.get("GOOG"), 0.25);
+
+        investmentAccount.setDefaultInvestmentPie(investmentPie);
+
+        stockBroker.autoInvest(investmentAccount, investmentPie, 1000);
+
+        accountDetailPrinter.printDetail(investmentAccount);
     }
 }

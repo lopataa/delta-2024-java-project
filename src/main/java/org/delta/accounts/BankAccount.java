@@ -31,7 +31,7 @@ public class BankAccount {
     }
 
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     public Owner getOwner() {

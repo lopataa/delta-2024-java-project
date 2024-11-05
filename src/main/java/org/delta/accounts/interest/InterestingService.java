@@ -20,8 +20,7 @@ public class InterestingService {
 
     public void calculate() {
         for (BankAccount account : this.globalAccountStorage.bankAccounts.values()) {
-            if (account instanceof SavingsAccount) {
-                SavingsAccount savingsAccount = (SavingsAccount) account;
+            if (account instanceof SavingsAccount savingsAccount) {
                 if (System.currentTimeMillis() - this.interestInterval > savingsAccount.getLastInterestedAt()) {
                     this.moneyTransferService.addMoney(account, this.interestCalculator.calculateInterest(savingsAccount));
                     savingsAccount.setLastInterestedAt(System.currentTimeMillis());

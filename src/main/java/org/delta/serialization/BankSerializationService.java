@@ -24,4 +24,11 @@ public class BankSerializationService {
 
         fileSystemStorage.write("bank.json", data);
     }
+
+    public void readAndDeserialize() {
+        String data = fileSystemStorage.read("bank.json");
+
+        BankJsonData bankJsonData = bankJsonDataSerializationService.deserialize(data);
+        bankJsonDataFacade.updateGlobalStoragesFromBankJsonData(bankJsonData);
+    }
 }

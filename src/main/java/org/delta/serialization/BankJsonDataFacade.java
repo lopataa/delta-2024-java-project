@@ -17,12 +17,20 @@ public class BankJsonDataFacade {
     @Inject
     private GlobalCardStorage globalCardStorage;
 
+    @Inject BankJsonDataFactory bankJsonDataFactory;
+
     public BankJsonData createBankJsonDataFromGlobalStorages() {
-        BankJsonData data = new BankJsonData();
-        data.accounts = globalBankAccountStorage.bankAccounts.values().stream().toList();
-        data.stocks = globalStockStorage.stocks.values().stream().toList();
-        data.paymentCards = globalCardStorage.paymentCards.values().stream().toList();
+        BankJsonData data = bankJsonDataFactory.create();
+        data.accounts = globalBankAccountStorage.bankAccounts;
+        data.stocks = globalStockStorage.stocks;
+        data.paymentCards = globalCardStorage.paymentCards;
 
         return data;
+    }
+
+    public void updateGlobalStoragesFromBankJsonData(BankJsonData bankJsonData) {
+        globalBankAccountStorage.bankAccounts = bankJsonData.accounts;
+        globalStockStorage.stocks = bankJsonData.stocks;
+        globalCardStorage.paymentCards = bankJsonData.paymentCards;
     }
 }

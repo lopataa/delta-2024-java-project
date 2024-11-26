@@ -1,7 +1,7 @@
 {
-  "paymentCards": [],
-  "accounts": [
-    {
+  "paymentCards": {},
+  "accounts": {
+    "1234": {
       "ownedStocks": {
         "GOOG": {
           "stock": {
@@ -13,8 +13,7 @@
         "AAPL": {
           "stock": {
             "symbol": "AAPL",
-            "price": 222.01,import org.delta.serialization.AccountStorageSerializationService;
-
+            "price": 222.01,
             "dividendYield": 0.0044999998062849045,
             "dividendFrequency": "QUARTERLY",
             "lastDividendPaidAt": "Sep 15, 3924, 12:00:00 AM"
@@ -70,27 +69,28 @@
         "id": "11"
       },
       "accountNumber": "1234",
-      "paymentCards": []
+      "paymentCards": [],
+      "type": "investment"
     }
-  ],
-  "stocks": [
-    {
+  },
+  "stocks": {
+    "GOOG": {
       "symbol": "GOOG",
       "price": 187.74800000000002
     },
-    {
+    "AAPL": {
       "symbol": "AAPL",
       "price": 222.01,
       "dividendYield": 0.0044999998062849045,
       "dividendFrequency": "QUARTERLY",
       "lastDividendPaidAt": "Sep 15, 3924, 12:00:00 AM"
     },
-    {
+    "O": {
       "symbol": "O",
       "price": 58.33,
       "dividendYield": 0.050999999046325684,
       "dividendFrequency": "MONTHLY",
       "lastDividendPaidAt": "Nov 15, 3924, 12:00:00 AM"
     }
-  ]
+  }
 }

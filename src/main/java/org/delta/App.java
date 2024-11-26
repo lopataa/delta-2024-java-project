@@ -1,14 +1,11 @@
 package org.delta;
 
 import com.google.inject.Inject;
-import org.delta.accounts.BankAccountFacade;
-import org.delta.accounts.SavingsAccount;
+import org.delta.accounts.*;
 import org.delta.accounts.interest.InterestingService;
 import org.delta.cards.PaymentCard;
 import org.delta.cards.PaymentCardFacade;
 import org.delta.cards.PaymentCardFactory;
-import org.delta.accounts.BankAccount;
-import org.delta.accounts.BankAccountFactory;
 import org.delta.investment.*;
 import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
@@ -55,7 +52,11 @@ public class App {
     @Inject
     BankSerializationService bankSerializationService;
 
+    @Inject
+    GlobalAccountStorage globalAccountStorage;
+
     void runBank() {
+        /*
         Owner owner = ownerFactory.createOwner("John", "Doe", "11");
 
         stockFacade.createDividendStock("AAPL", 222.01, 0.0045f, DividendFrequency.QUARTERLY, new Date(2024, 8, 15));
@@ -83,7 +84,23 @@ public class App {
         accountDetailPrinter.printDetail(investmentAccount); // see were rich now :)
 
 
+
         // save the globalaccountstorage
         bankSerializationService.serializeAndWriteToFile();
+        */
+
+
+        bankSerializationService.readAndDeserialize();
+
+        // get first account
+        BankAccount acc = globalAccountStorage.bankAccounts.values().stream().toList().getFirst();
+
+        // test it out
+        try {
+            accountDetailPrinter.printDetail(acc);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
     }
 }

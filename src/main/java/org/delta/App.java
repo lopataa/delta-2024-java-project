@@ -14,6 +14,7 @@ import org.delta.people.Owner;
 import org.delta.people.OwnerFactory;
 import org.delta.people.OwnerJsonSerializationService;
 import org.delta.print.AccountDetailPrinter;
+import org.delta.serialization.BankSerializationService;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -51,6 +52,9 @@ public class App {
     @Inject
     GlobalStockStorage globalStockStorage;
 
+    @Inject
+    BankSerializationService bankSerializationService;
+
     void runBank() {
         Owner owner = ownerFactory.createOwner("John", "Doe", "11");
 
@@ -79,5 +83,7 @@ public class App {
         accountDetailPrinter.printDetail(investmentAccount); // see were rich now :)
 
 
+        // save the globalaccountstorage
+        bankSerializationService.serializeAndWriteToFile();
     }
 }

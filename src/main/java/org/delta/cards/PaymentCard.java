@@ -5,7 +5,7 @@ import org.delta.accounts.BankAccount;
 public class PaymentCard {
     private String number;
     private String personalIdentificationNumber;
-    private BankAccount bankAccount;
+    private transient BankAccount bankAccount;
 
     public PaymentCard(String cardNumber, String cardPIN) {
         if (cardNumber.length() != 16) {

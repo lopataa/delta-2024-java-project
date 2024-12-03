@@ -56,8 +56,9 @@ public class App {
     GlobalAccountStorage globalAccountStorage;
 
     void runBank() {
-        /*
         Owner owner = ownerFactory.createOwner("John", "Doe", "11");
+
+        BankAccount bankAccount = bankAccountFacade.createBankAccount(100, owner);
 
         stockFacade.createDividendStock("AAPL", 222.01, 0.0045f, DividendFrequency.QUARTERLY, new Date(2024, 8, 15));
         stockFacade.createStock("GOOG", 170.68);
@@ -87,20 +88,19 @@ public class App {
 
         // save the globalaccountstorage
         bankSerializationService.serializeAndWriteToFile();
-        */
 
-
-        bankSerializationService.readAndDeserialize();
-
-        // get first account
-        BankAccount acc = globalAccountStorage.bankAccounts.values().stream().toList().getFirst();
-
-        // test it out
-        try {
-            accountDetailPrinter.printDetail(acc);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+//
+//        bankSerializationService.readAndDeserialize();
+//
+//        // get first account
+//        BankAccount acc = globalAccountStorage.bankAccounts.values().stream().toList().getFirst();
+//
+//        // test it out
+//        try {
+//            accountDetailPrinter.printDetail(acc);
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//        }
 
     }
 }
